@@ -12,9 +12,10 @@ A Chrome extension to adjust the number of items per row on the YouTube homepage
 ## Installation
 
 1. Download or clone this repository.
-2. Open Chrome and go to `chrome://extensions/`.
-3. Enable "Developer mode" (top right).
-4. Click "Load unpacked" and select the `YTGridExtender` folder.
+2. Extract the zip file
+3. Open Chrome and go to `chrome://extensions/`.
+4. Enable "Developer mode" (top right).
+5. Click "Load unpacked" and select the `YTGridExtender` folder.
 
 ## Usage
 
