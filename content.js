@@ -16,26 +16,39 @@ function removeItemsPerRow() {
 }
 
 function applySetting() {
-  chrome.storage.sync.get(['itemsPerRow', 'ytGridExtenderEnabled'], (result) => {
-    if (result.ytGridExtenderEnabled !== false && result.itemsPerRow) {
-      setItemsPerRow(result.itemsPerRow);
-    } else {
-      removeItemsPerRow();
+  if (typeof chrome === 'undefined' || !chrome.runtime) return;
+  try {
+    chrome.storage.sync.get(['itemsPerRow', 'ytGridExtenderEnabled'], (result) => {
+      if (chrome.runtime && chrome.runtime.lastError) return;
+      if (result.ytGridExtenderEnabled !== false && result.itemsPerRow) {
+        setItemsPerRow(result.itemsPerRow);
+      } else {
+        removeItemsPerRow();
+      }
+    });
+  } catch (e) {
+    // Extension context invalidated, do nothing
+  }
+}
+
+if (typeof chrome !== 'undefined' && chrome.runtime) {
+  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    try {
+      if (msg.type === 'UPDATE_ITEMS_PER_ROW') {
+        chrome.storage.sync.get(['ytGridExtenderEnabled'], (result) => {
+          if (chrome.runtime && chrome.runtime.lastError) return;
+          if (result.ytGridExtenderEnabled !== false) {
+            setItemsPerRow(msg.value);
+          }
+        });
+      } else if (msg.type === 'TOGGLE_EXTENSION') {
+        applySetting();
+      }
+    } catch (e) {
+      // Extension context invalidated, do nothing
     }
   });
 }
-
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  if (msg.type === 'UPDATE_ITEMS_PER_ROW') {
-    chrome.storage.sync.get(['ytGridExtenderEnabled'], (result) => {
-      if (result.ytGridExtenderEnabled !== false) {
-        setItemsPerRow(msg.value);
-      }
-    });
-  } else if (msg.type === 'TOGGLE_EXTENSION') {
-    applySetting();
-  }
-});
 
 // Helper to track last URL
 let lastUrl = location.href;
