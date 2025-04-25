@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Grid Extender</title>
+  <style>
+    body { font-family: Arial, sans-serif; min-width: 200px; }
+    label { display: block; margin-bottom: 8px; }
+    input[type=number] { width: 60px; }
+  </style>
+</head>
+<body>
+  <label for="enableToggle">
+    <input type="checkbox" id="enableToggle"> Enable Grid Changes
+  </label>
+  <label for="itemsPerRow">Items per row:
+    <input type="number" id="itemsPerRow" min="1" max="12" value="4" aria-label="Items per row">
+  </label>
+  <button id="applyBtn">Apply</button>
+  <div style="margin-top:10px;font-size:12px;">
+    <a href="https://github.com/codyklr/YTGridExtender#privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
