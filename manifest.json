@@ -3,7 +3,7 @@
   "name": "YouTube Grid Extender",
   "version": "1.0",
   "description": "Adjust the number of items per row on the YouTube homepage.",
-  "permissions": ["scripting", "storage"],
+  "permissions": ["storage"],
   "host_permissions": ["https://www.youtube.com/*"],
   "action": {
     "default_popup": "popup.html",
